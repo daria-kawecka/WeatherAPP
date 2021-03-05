@@ -6,8 +6,8 @@ import img from "./images/background.jpg";
 const AppDiv = styled.div`
   background: radial-gradient(
       circle,
-      rgba(68, 90, 128, 0.8) 0%,
-      rgba(34, 45, 64, 0.8) 100%
+      rgba(122, 155, 211, 0.85) 0%,
+      rgba(27, 42, 68, 0.9) 100%
     ),
     url(${img});
   text-align: center;
