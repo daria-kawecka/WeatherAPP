@@ -2,7 +2,8 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Badge from "react-bootstrap/Badge";
 import styled from "styled-components";
-import { WiCloud } from "react-icons/wi";
+//icons:
+import { BsFillCloudFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
 const AppBarStyles = styled.div`
@@ -21,7 +22,8 @@ const AppBarStyles = styled.div`
     font-weight: 800;
   }
   .appIcon {
-    font-size: 32px;
+    font-size: 22px;
+    color: #0069d9;
   }
 `;
 
@@ -30,7 +32,7 @@ export const AppBar = () => (
     <Navbar expand="lg" className="shadow-lg">
       <Navbar.Brand href="/">
         <IconContext.Provider value={{ className: "appIcon" }}>
-          <WiCloud />
+          <BsFillCloudFill />
         </IconContext.Provider>
         Weather{" "}
         <Badge pill variant="info">
