@@ -2,6 +2,7 @@ import React from "react";
 
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
@@ -16,21 +17,28 @@ const InputStyles = styled.div`
   }
 `;
 
-export const Input = ({ onClick, onChange }) => (
+export const Input = ({ onClick, onChange, onEnter }) => (
   <InputStyles>
-    <InputGroup className="mb-3">
-      <FormControl
-        placeholder="Enter city..."
-        aria-label="Enter city..."
-        aria-describedby="basic-addon2"
-        className="shadow"
-        onChange={onChange}
-      />
-      <InputGroup.Append>
-        <Button variant="primary" onClick={onClick}>
-          <BsSearch />
-        </Button>
-      </InputGroup.Append>
-    </InputGroup>
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <InputGroup className="mb-3">
+        <FormControl
+          placeholder="Enter city..."
+          aria-label="Enter city..."
+          aria-describedby="basic-addon2"
+          className="shadow"
+          onChange={onChange}
+          onKeyPress={onEnter}
+        />
+        <InputGroup.Append>
+          <Button variant="primary" onClick={onClick}>
+            <BsSearch />
+          </Button>
+        </InputGroup.Append>
+      </InputGroup>
+    </Form>
   </InputStyles>
 );

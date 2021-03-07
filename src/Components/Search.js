@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Weather from "./Weather";
 import axios from "axios";
+
+import { Input } from "./Input";
+import Weather from "./Weather";
+
 const Search = () => {
   const [query, setQuery] = useState("san francisco");
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  //api options:
   const key = process.env.REACT_APP_KEY;
   const host = process.env.REACT_APP_HOST;
   const options = {
@@ -20,38 +26,46 @@ const Search = () => {
       "x-rapidapi-host": host,
     },
   };
+  const getWeatherData = async () => {
+    await axios
+      .request(options)
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        setIsError(true);
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    getWeatherData();
+  }, [options.params.q]);
+
   const updateSearchTerm = (e) => {
     setSearchTerm(e.target.value);
   };
   const getSearchData = (e) => {
-    e.preventDefault();
     setQuery(searchTerm);
-    console.log("zmieniono");
   };
-  useEffect(async () => {
-    await axios
-      .request(options)
-      .then(function (response) {
-        setData(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-    console.log(data);
-  }, [query]);
+  const getWithEnter = (e) => {
+    if (e.key === "Enter") {
+      getSearchData();
+    }
+  };
 
   return (
     <div>
-      <form>
-        <input
-          type="text"
-          placeholder="Localization"
-          onChange={updateSearchTerm}
-        ></input>
-        <button onClick={getSearchData}>Search...</button>
-      </form>
-      {data ? <Weather data={data}></Weather> : ""}
+      <Input
+        onChange={updateSearchTerm}
+        onClick={getSearchData}
+        onEnter={getWithEnter}
+      ></Input>
+      {!isError && data ? (
+        <Weather data={data} />
+      ) : (
+        <p>Something went wrong...</p>
+      )}
     </div>
   );
 };
