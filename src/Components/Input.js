@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
 import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
@@ -14,31 +13,51 @@ const InputStyles = styled.div`
   }
   .form-control {
     font-weight: 100;
+    outline: none;
+    border-color: #007bff;
+  }
+  .form-control:valid,
+  .form-control:valid:focus {
+    background-image: none;
+    border-color: #007bff;
   }
 `;
 
-export const Input = ({ onClick, onChange, onEnter }) => (
-  <InputStyles>
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <InputGroup className="mb-3">
-        <FormControl
-          placeholder="Enter city..."
-          aria-label="Enter city..."
-          aria-describedby="basic-addon2"
-          className="shadow"
-          onChange={onChange}
-          onKeyPress={onEnter}
-        />
-        <InputGroup.Append>
-          <Button variant="primary" onClick={onClick}>
-            <BsSearch />
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
-    </Form>
-  </InputStyles>
-);
+const Input = ({ onClick, onChange, onEnter }) => {
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+  };
+  return (
+    <InputStyles>
+      <Form validated={validated} onSubmit={handleSubmit}>
+        <InputGroup className="mb-3" size="m">
+          <Form.Control
+            placeholder="Enter city..."
+            type="text"
+            className="shadow"
+            onChange={onChange}
+            onKeyPress={onEnter}
+            required
+          />
+          <InputGroup.Append>
+            <Button type="submit" variant="primary" onClick={onClick}>
+              <BsSearch />
+            </Button>
+          </InputGroup.Append>
+          <Form.Control.Feedback type="invalid" tooltip>
+            Please provide a valid city.
+          </Form.Control.Feedback>
+        </InputGroup>
+      </Form>
+    </InputStyles>
+  );
+};
+
+export default Input;

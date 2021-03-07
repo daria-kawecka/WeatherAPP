@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Input } from "./Input";
+import Input from "./Input";
 import Weather from "./Weather";
 
 const Search = () => {
@@ -13,29 +13,29 @@ const Search = () => {
   //api options:
   const key = process.env.REACT_APP_KEY;
   const host = process.env.REACT_APP_HOST;
+  const weather_URL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=${key}`;
   const options = {
     method: "GET",
-    url: "https://community-open-weather-map.p.rapidapi.com/weather",
+    url: "https://api.openweathermap.org/data/2.5/weather",
     params: {
       q: query,
       units: "metric",
       cnt: "10",
     },
     headers: {
-      "x-rapidapi-key": key,
-      "x-rapidapi-host": host,
+      APPID: key,
+      "Access-Control-Allow-Origin": "*",
     },
   };
   const getWeatherData = async () => {
     await axios
-      .request(options)
+      .get(weather_URL)
       .then((response) => {
         setData(response.data);
-        console.log(response.data);
+        setIsError(false);
       })
       .catch((error) => {
         setIsError(true);
-        console.error(error);
       });
   };
   useEffect(() => {
@@ -46,7 +46,13 @@ const Search = () => {
     setSearchTerm(e.target.value);
   };
   const getSearchData = (e) => {
-    setQuery(searchTerm);
+    console.log(e);
+    if (searchTerm) {
+      setQuery(searchTerm);
+    } else
+      setQuery((prevState) => {
+        return prevState;
+      });
   };
   const getWithEnter = (e) => {
     if (e.key === "Enter") {
