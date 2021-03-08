@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Search from "./Components/Search";
+import SearchResults from "./Components/SearchResults";
 import Forecast from "./Components/Forecast";
 import { AppBar } from "./Components/AppBar";
 import img from "./images/background.jpg";
@@ -17,9 +17,9 @@ const AppDiv = styled.div`
 function App() {
   return (
     <AppDiv>
-      <AppBar></AppBar>
-      <Search></Search>
-      <Forecast></Forecast>
+      <AppBar />
+      <SearchResults />
+      <Forecast />
     </AppDiv>
   );
 }

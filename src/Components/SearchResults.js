@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 import Input from "./Input";
 import Weather from "./Weather";
+import { ErrorInfo } from "./ErrorInfo";
+
+const WeatherContainer = styled.div`
+  width: 50vw;
+  height: 50vh;
+  position: relative;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 20%);
+`;
 
 const Search = () => {
   const [query, setQuery] = useState("san francisco");
@@ -12,21 +23,8 @@ const Search = () => {
 
   //api options:
   const key = process.env.REACT_APP_KEY;
-  const host = process.env.REACT_APP_HOST;
   const weather_URL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=${key}`;
-  const options = {
-    method: "GET",
-    url: "https://api.openweathermap.org/data/2.5/weather",
-    params: {
-      q: query,
-      units: "metric",
-      cnt: "10",
-    },
-    headers: {
-      APPID: key,
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
+
   const getWeatherData = async () => {
     await axios
       .get(weather_URL)
@@ -40,7 +38,7 @@ const Search = () => {
   };
   useEffect(() => {
     getWeatherData();
-  }, [options.params.q]);
+  }, [query]);
 
   const updateSearchTerm = (e) => {
     setSearchTerm(e.target.value);
@@ -68,9 +66,11 @@ const Search = () => {
         onEnter={getWithEnter}
       ></Input>
       {!isError && data ? (
-        <Weather data={data} />
+        <WeatherContainer>
+          <Weather data={data} />
+        </WeatherContainer>
       ) : (
-        <p>Something went wrong...</p>
+        <ErrorInfo />
       )}
     </div>
   );
