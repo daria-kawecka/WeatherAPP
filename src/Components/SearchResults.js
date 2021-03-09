@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Input from "./Input";
 import Weather from "./Weather";
+import Forecast from "./Forecast";
 import { ErrorInfo } from "./ErrorInfo";
 
 const WeatherContainer = styled.div`
@@ -19,20 +20,28 @@ const Search = () => {
   const [query, setQuery] = useState("san francisco");
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState("");
+  const [forecastData, setForecastData] = useState("");
   const [isError, setIsError] = useState(false);
 
   //api options:
   const key = process.env.REACT_APP_KEY;
   const weather_URL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=${key}`;
+  const forecast_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=metric&appid=${key}`;
+
+  const requestOne = axios.get(weather_URL);
+  const requestTwo = axios.get(forecast_URL);
 
   const getWeatherData = async () => {
     await axios
-      .get(weather_URL)
-      .then((response) => {
-        setData(response.data);
-        setIsError(false);
-      })
-      .catch((error) => {
+      .all([requestOne, requestTwo])
+      .then(
+        axios.spread((...responses) => {
+          setData(responses[0].data);
+          setForecastData(responses[1].data);
+          setIsError(false);
+        })
+      )
+      .catch((errors) => {
         setIsError(true);
       });
   };
@@ -44,13 +53,9 @@ const Search = () => {
     setSearchTerm(e.target.value);
   };
   const getSearchData = (e) => {
-    console.log(e);
     if (searchTerm) {
       setQuery(searchTerm);
-    } else
-      setQuery((prevState) => {
-        return prevState;
-      });
+    }
   };
   const getWithEnter = (e) => {
     if (e.key === "Enter") {
@@ -68,6 +73,7 @@ const Search = () => {
       {!isError && data ? (
         <WeatherContainer>
           <Weather data={data} />
+          <Forecast data={forecastData} />
         </WeatherContainer>
       ) : (
         <ErrorInfo />
