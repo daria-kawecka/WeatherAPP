@@ -18,6 +18,7 @@ const WeatherContainer = styled.div`
 
 const Search = () => {
   const [query, setQuery] = useState("san francisco");
+  const [coords, setCoord] = useState({ lat: "33.4418", lon: "94.0377" });
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState("");
   const [forecastData, setForecastData] = useState("");
@@ -26,26 +27,42 @@ const Search = () => {
   //api options:
   const key = process.env.REACT_APP_KEY;
   const weather_URL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=${key}`;
-  const forecast_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=metric&appid=${key}`;
+  const forecast_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=hourly,minutely&units=metric&appid=${key}`;
 
   const requestOne = axios.get(weather_URL);
   const requestTwo = axios.get(forecast_URL);
 
   const getWeatherData = async () => {
     await axios
-      .all([requestOne, requestTwo])
-      .then(
-        axios.spread((...responses) => {
-          setData(responses[0].data);
-          setForecastData(responses[1].data);
-          setIsError(false);
-        })
-      )
+      .get(weather_URL)
+      .then((response) => {
+        setData(response.data);
+        setCoord({
+          lat: response.data.coord.lat,
+          lon: response.data.coord.lon,
+        });
+
+        setIsError(false);
+      })
+      .catch((errors) => {
+        setIsError(true);
+      });
+    await getForecastData();
+  };
+
+  const getForecastData = async () => {
+    console.log("wywołanie");
+    await axios
+      .get(forecast_URL)
+      .then((response) => {
+        setForecastData(response.data.daily);
+        setIsError(false);
+      })
       .catch((errors) => {
         setIsError(true);
       });
   };
-  useEffect(() => {
+  useEffect(async () => {
     getWeatherData();
   }, [query]);
 
