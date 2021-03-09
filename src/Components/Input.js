@@ -15,11 +15,15 @@ const InputStyles = styled.div`
     font-weight: 100;
     outline: none;
     border-color: #007bff;
+    color: #949494;
   }
   .form-control:valid,
   .form-control:valid:focus {
     background-image: none;
     border-color: #007bff;
+  }
+  .form-control:valid:focus {
+    color: black;
   }
 `;
 
