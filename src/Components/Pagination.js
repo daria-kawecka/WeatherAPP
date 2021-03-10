@@ -10,6 +10,7 @@ const PaginationComp = ({ paginate, currentPage }) => {
         <Pagination.Item
           active={number === currentPage}
           onClick={() => paginate(number)}
+          key={number}
         >
           {number}
         </Pagination.Item>
