@@ -5,15 +5,42 @@ import styled from "styled-components";
 import Input from "./Input";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
+import Chart_Left from "./Chart_Left";
 import { ErrorInfo } from "./ErrorInfo";
+import Chart_Bottom from "./Chart_Bottom";
 
 const WeatherContainer = styled.div`
-  width: 50vw;
-  height: 50vh;
-  position: relative;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50%, 20%);
+  width: 100%;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 50% 50%;
+  gap: 10px 20px;
+  justify-items: stretch;
+  grid-template-areas:
+    "Left Center Forecast"
+    "Left Bottom Forecast";
+
+  .left-side {
+    background-color: white;
+    grid-area: Left;
+  }
+  .chart-bottom {
+    grid-area: Bottom;
+    background-color: white;
+  }
+  .center {
+    background-color: blue;
+    grid-area: Center;
+  }
+  .forecast {
+    grid-area: Forecast;
+    justify-self: stretch;
+    align-self: stretch;
+  }
+  .container {
+    width: 100%;
+  }
 `;
 
 const Search = () => {
@@ -46,6 +73,7 @@ const Search = () => {
       })
       .catch((errors) => {
         setIsError(true);
+        console.log(errors);
       });
     await getForecastData();
   };
@@ -87,10 +115,12 @@ const Search = () => {
         onClick={getSearchData}
         onEnter={getWithEnter}
       ></Input>
-      {!isError && data ? (
+      {!isError && data && forecastData ? (
         <WeatherContainer>
+          <Chart_Left className="left-side" />
           <Weather data={data} />
-          <Forecast data={forecastData} />
+          <Forecast data={forecastData} className="forecast" />
+          <Chart_Bottom className="chart-bottom" />
         </WeatherContainer>
       ) : (
         <ErrorInfo />

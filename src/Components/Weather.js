@@ -21,13 +21,18 @@ import { WiStrongWind } from "react-icons/wi";
 const MainCardStyles = styled.div`
   display: flex;
   justify-content: space-evenly;
-
+  height: 100%;
   .card {
     width: 20rem;
     background-color: rgba(1, 24, 68, 0.15);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     border-color: transparent;
     color: #e4e2e2;
   }
+
   .card-title {
     font-size: 2rem;
     border-bottom: 2px solid #e4e2e2;
@@ -45,14 +50,15 @@ const MainCardStyles = styled.div`
 `;
 const AsideCardStyles = styled.div`
   .card {
+    height: 100%;
   }
   .card-body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+    text-align: center;
   }
-
   .card-text {
     font-size: 1.4rem;
   }
@@ -86,7 +92,7 @@ const Weather = ({ data }) => {
   };
   return (
     <MainCardStyles>
-      <Card>
+      <Card style={{ marginRight: "10px" }}>
         <Card.Body>
           <Card.Title>{TodayWeather.city}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
