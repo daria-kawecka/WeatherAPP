@@ -29,7 +29,7 @@ const StyledList = styled(ListGroup)`
       background-color: #c4c4c3;
       border: none;
       color: #222d40;
-      line-height: 0.8;
+      line-height: 1;
       font-size: 0.9rem;
     }
     .page-item.active .page-link {
