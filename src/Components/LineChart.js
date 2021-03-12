@@ -11,7 +11,7 @@ const LineChart = ({ forecastData }) => {
   const [tempForecastNight, setTempForecastNight] = useState([]);
   const [dateForecast, setDateForecast] = useState([]);
 
-  const getTemperatures = () => {
+  const getTemperatures = async () => {
     setTempForecast({
       day: [
         forecastData.map((element) => {
@@ -25,10 +25,10 @@ const LineChart = ({ forecastData }) => {
       ],
     });
   };
-  const getDate = () => {
+  const getDate = async () => {
     setDateForecast(
       forecastData.map((element) => {
-        return unixConverter(element.dt);
+        return unixConverter(element.dt).slice(0, 7);
       })
     );
   };
@@ -42,38 +42,68 @@ const LineChart = ({ forecastData }) => {
     datasets: [
       {
         label: "Day Temperature",
-        data: tempForecast.day[0],
+        data: tempForecast.day ? tempForecast.day[0] : "",
         fill: false,
+        smooth: true,
         backgroundColor: "#ffd06e",
-        borderColor: "rgba(255, 209, 110, 0.3)",
+        borderColor: "rgba(255, 209, 110, 0.45)",
       },
       {
         label: "Night Temperature",
-        data: tempForecast.night[0],
+        data: tempForecast.night ? tempForecast.night[0] : "",
         fill: false,
+        smooth: true,
         backgroundColor: "#222d40",
-        borderColor: "rgba(34, 45, 64, 0.3)",
+        borderColor: "rgba(34, 45, 64, 0.45)",
       },
     ],
   };
 
   const options = {
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return (
+            data["datasets"][tooltipItem.datasetIndex]["data"][
+              tooltipItem.index
+            ] + "ºC"
+          );
+        },
+      },
+      displayColors: false,
+    },
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
+            fontColor: "#e4e2e2",
+          },
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            fontColor: "#e4e2e2",
           },
         },
       ],
     },
+    legend: {
+      display: true,
+      labels: {
+        fontColor: "#e4e2e2",
+      },
+    },
+    animation: {
+      easing: "easeInCubic",
+    },
   };
 
-  console.log("halo", tempForecast);
   return (
     <>
       <div className="Container">
-        {tempForecast.day[0].length && dateForecast.length ? (
+        {tempForecast && dateForecast.length ? (
           <Line data={data} options={options} />
         ) : (
           ">Loading<"

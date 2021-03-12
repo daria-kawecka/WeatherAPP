@@ -32,7 +32,9 @@ const MainCardStyles = styled.div`
     border-color: transparent;
     color: #e4e2e2;
   }
-
+  .icons {
+    font-size: 2.5rem;
+  }
   .card-title {
     font-size: 2rem;
     border-bottom: 2px solid #e4e2e2;
@@ -61,6 +63,10 @@ const AsideCardStyles = styled.div`
   }
   .card-text {
     font-size: 1.4rem;
+  }
+  .icons-aside {
+    font-size: 1.9rem;
+    margin-right: 5px;
   }
 `;
 
@@ -101,7 +107,6 @@ const Weather = ({ data }) => {
           <Card.Text>
             <IconContext.Provider
               value={{
-                style: { fontSize: "2.5rem" },
                 className: "icons",
               }}
             >
@@ -138,49 +143,37 @@ const Weather = ({ data }) => {
         <Card>
           <Card.Body>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <FaThermometerEmpty />
               </IconContext.Provider>
               Min temp: {TodayWeather.tempMin}
             </Card.Text>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <FaThermometerFull />
               </IconContext.Provider>
               Max temp: {TodayWeather.tempMax}
             </Card.Text>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <BsFillCloudFill />
               </IconContext.Provider>
               Clouds: {TodayWeather.clouds}%
             </Card.Text>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <WiHumidity />
               </IconContext.Provider>
               Humidity: {TodayWeather.humidity}%
             </Card.Text>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <WiBarometer />
                 Pressure: {TodayWeather.pressure}hPa
               </IconContext.Provider>
             </Card.Text>
             <Card.Text>
-              <IconContext.Provider
-                value={{ style: { fontSize: "1.8rem", marginRight: "5px" } }}
-              >
+              <IconContext.Provider value={{ className: "icons-aside" }}>
                 <WiStrongWind />
               </IconContext.Provider>
               Wind: {TodayWeather.wind}m/s

@@ -80,13 +80,8 @@ const Search = () => {
       })
       .catch((errors) => {
         setIsError(true);
-        console.log(errors);
       });
   };
-  // useEffect(async () => {
-  //   setData(getWeatherData());
-  //   await getForecastData();
-  // }, [query]);
 
   const updateSearchTerm = (e) => {
     setSearchTerm(e.target.value);
@@ -101,7 +96,7 @@ const Search = () => {
       getSearchData();
     }
   };
-  // console.log(data);
+
   return (
     <div>
       <Input
