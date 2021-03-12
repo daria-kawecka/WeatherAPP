@@ -4,15 +4,26 @@ import unixConverter from "./date/UnixConverter";
 import { Line } from "react-chartjs-2";
 
 const LineChart = ({ forecastData }) => {
-  const [tempForecast, setTempForecast] = useState([]);
+  const [tempForecast, setTempForecast] = useState([
+    { day: [] },
+    { night: [] },
+  ]);
+  const [tempForecastNight, setTempForecastNight] = useState([]);
   const [dateForecast, setDateForecast] = useState([]);
 
-  const getTemperatures = (time) => {
-    setTempForecast(
-      forecastData.map((element) => {
-        return Math.floor(element.temp[time]);
-      })
-    );
+  const getTemperatures = () => {
+    setTempForecast({
+      day: [
+        forecastData.map((element) => {
+          return Math.floor(element.temp.day);
+        }),
+      ],
+      night: [
+        forecastData.map((element) => {
+          return Math.floor(element.temp.night);
+        }),
+      ],
+    });
   };
   const getDate = () => {
     setDateForecast(
@@ -22,7 +33,7 @@ const LineChart = ({ forecastData }) => {
     );
   };
   useEffect(() => {
-    getTemperatures("day");
+    getTemperatures();
     getDate();
   }, [forecastData]);
 
@@ -30,11 +41,18 @@ const LineChart = ({ forecastData }) => {
     labels: dateForecast,
     datasets: [
       {
-        label: "temperature",
-        data: tempForecast,
+        label: "Day Temperature",
+        data: tempForecast.day[0],
         fill: false,
-        backgroundColor: "rgb(15, 18, 161)",
-        borderColor: "rgba(12, 61, 221, 0.2)",
+        backgroundColor: "#ffd06e",
+        borderColor: "rgba(255, 209, 110, 0.3)",
+      },
+      {
+        label: "Night Temperature",
+        data: tempForecast.night[0],
+        fill: false,
+        backgroundColor: "#222d40",
+        borderColor: "rgba(34, 45, 64, 0.3)",
       },
     ],
   };
@@ -51,11 +69,15 @@ const LineChart = ({ forecastData }) => {
     },
   };
 
-  console.log("halo", dateForecast.length, forecastData);
+  console.log("halo", tempForecast);
   return (
     <>
       <div className="Container">
-        {dateForecast.length ? <Line data={data} options={options} /> : ""}
+        {tempForecast.day[0].length && dateForecast.length ? (
+          <Line data={data} options={options} />
+        ) : (
+          ">Loading<"
+        )}
       </div>
     </>
   );
