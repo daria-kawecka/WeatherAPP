@@ -7,7 +7,7 @@ import Weather from "./Weather";
 import Forecast from "./Forecast";
 import Chart_Left from "./Chart_Left";
 import { ErrorInfo } from "./ErrorInfo";
-import Chart_Bottom from "./Chart_Bottom";
+import LineChart from "./LineChart";
 
 const WeatherContainer = styled.div`
   width: 100%;
@@ -54,45 +54,39 @@ const Search = () => {
   //api options:
   const key = process.env.REACT_APP_KEY;
   const weather_URL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&APPID=${key}`;
-  const forecast_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=hourly,minutely&units=metric&appid=${key}`;
 
-  const requestOne = axios.get(weather_URL);
-  const requestTwo = axios.get(forecast_URL);
-
-  const getWeatherData = async () => {
-    await axios
-      .get(weather_URL)
-      .then((response) => {
-        setData(response.data);
-        setCoord({
-          lat: response.data.coord.lat,
-          lon: response.data.coord.lon,
-        });
-
-        setIsError(false);
-      })
-      .catch((errors) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      try {
+        const result = await axios(weather_URL);
+        setData(result.data);
+        getForecastData(result.data.coord.lat, result.data.coord.lon);
+      } catch (error) {
         setIsError(true);
-        console.log(errors);
-      });
-    await getForecastData();
-  };
+      }
+    };
+    fetchData();
+  }, [query]);
 
-  const getForecastData = async () => {
-    console.log("wywołanie");
-    await axios
-      .get(forecast_URL)
+  const getForecastData = async (lat, lon) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${key}`
+      )
       .then((response) => {
         setForecastData(response.data.daily);
         setIsError(false);
       })
       .catch((errors) => {
         setIsError(true);
+        console.log(errors);
       });
   };
-  useEffect(async () => {
-    getWeatherData();
-  }, [query]);
+  // useEffect(async () => {
+  //   setData(getWeatherData());
+  //   await getForecastData();
+  // }, [query]);
 
   const updateSearchTerm = (e) => {
     setSearchTerm(e.target.value);
@@ -107,7 +101,7 @@ const Search = () => {
       getSearchData();
     }
   };
-
+  // console.log(data);
   return (
     <div>
       <Input
@@ -115,12 +109,12 @@ const Search = () => {
         onClick={getSearchData}
         onEnter={getWithEnter}
       ></Input>
-      {!isError && data && forecastData ? (
+      {!isError && data && forecastData.length ? (
         <WeatherContainer>
           <Chart_Left className="left-side" />
           <Weather data={data} />
           <Forecast data={forecastData} className="forecast" />
-          <Chart_Bottom className="chart-bottom" />
+          <LineChart className="chart-bottom" forecastData={forecastData} />
         </WeatherContainer>
       ) : (
         <ErrorInfo />
