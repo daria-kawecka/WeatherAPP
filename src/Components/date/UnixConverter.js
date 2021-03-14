@@ -10,5 +10,6 @@ export default function convertTime(unix_timestamp) {
   let date = newDate.getDate();
   //create new date :
   let time = day + ", " + date + " " + month;
+
   return time;
 }
