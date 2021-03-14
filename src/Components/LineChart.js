@@ -8,7 +8,6 @@ const LineChart = ({ forecastData }) => {
     { day: [] },
     { night: [] },
   ]);
-  const [tempForecastNight, setTempForecastNight] = useState([]);
   const [dateForecast, setDateForecast] = useState([]);
 
   const getTemperatures = async () => {
@@ -60,6 +59,7 @@ const LineChart = ({ forecastData }) => {
   };
 
   const options = {
+    maintainAspectRatio: false,
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Input from "./Input";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
-import Chart_Left from "./Chart_Left";
+import TempChart from "./TempChart";
 import { ErrorInfo } from "./ErrorInfo";
 import LineChart from "./LineChart";
 
@@ -45,10 +45,10 @@ const WeatherContainer = styled.div`
 
 const Search = () => {
   const [query, setQuery] = useState("san francisco");
-  const [coords, setCoord] = useState({ lat: "33.4418", lon: "94.0377" });
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState("");
   const [forecastData, setForecastData] = useState("");
+  const [hourlyTemp, setHourlyTemp] = useState("");
   const [isError, setIsError] = useState(false);
 
   //api options:
@@ -61,6 +61,7 @@ const Search = () => {
       try {
         const result = await axios(weather_URL);
         setData(result.data);
+
         getForecastData(result.data.coord.lat, result.data.coord.lon);
       } catch (error) {
         setIsError(true);
@@ -72,10 +73,11 @@ const Search = () => {
   const getForecastData = async (lat, lon) => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
       )
       .then((response) => {
         setForecastData(response.data.daily);
+        setHourlyTemp(response.data.hourly);
         setIsError(false);
       })
       .catch((errors) => {
@@ -106,7 +108,7 @@ const Search = () => {
       ></Input>
       {!isError && data && forecastData.length ? (
         <WeatherContainer>
-          <Chart_Left className="left-side" />
+          <TempChart tempData={hourlyTemp} className="left-side" />
           <Weather data={data} />
           <Forecast data={forecastData} className="forecast" />
           <LineChart className="chart-bottom" forecastData={forecastData} />
