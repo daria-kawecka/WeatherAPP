@@ -7,7 +7,7 @@ import Weather from "./Weather";
 import Forecast from "./Forecast";
 import TempChart from "./TempChart";
 import { ErrorInfo } from "./ErrorInfo";
-import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 
 const WeatherContainer = styled.div`
   width: 100%;
@@ -22,8 +22,8 @@ const WeatherContainer = styled.div`
     "Left Bottom Forecast";
 
   .left-side {
-    background-color: white;
     grid-area: Left;
+    height: 100%;
   }
   .chart-bottom {
     grid-area: Bottom;
@@ -64,6 +64,7 @@ const Search = () => {
 
         getForecastData(result.data.coord.lat, result.data.coord.lon);
       } catch (error) {
+        console.log(error);
         setIsError(true);
       }
     };
@@ -108,10 +109,10 @@ const Search = () => {
       ></Input>
       {!isError && data && forecastData.length ? (
         <WeatherContainer>
-          <TempChart tempData={hourlyTemp} className="left-side" />
+          <TempChart className="left-side" tempData={hourlyTemp} />
           <Weather data={data} />
           <Forecast data={forecastData} className="forecast" />
-          <LineChart className="chart-bottom" forecastData={forecastData} />
+          <BarChart className="chart-bottom" forecastData={forecastData} />
         </WeatherContainer>
       ) : (
         <ErrorInfo />
