@@ -7,10 +7,9 @@ const Container = styled.div`
   padding: 22px;
 `;
 const TempChart = ({ tempData }) => {
-  console.log(tempData);
-  //apparent temp???
   const [tempHourly, setTempHourly] = useState([]);
   const [humidityHourly, setHumidityHourly] = useState([]);
+  const [popHourly, setPopHourly] = useState([]);
   const [hours, setHours] = useState([]);
 
   const getHour = (timestamp) => {
@@ -23,20 +22,22 @@ const TempChart = ({ tempData }) => {
   const getData = () => {
     let tempHour = [];
     let temperatures = [];
+    let pop = [];
     let humidity = [];
     Object.entries(tempData)
       .slice(23, 48)
       .map(
         (element) => (
           tempHour.push(getHour(element[1].dt)),
-          console.log(element[1].pop),
-          humidity.push(element[1].pop),
-          temperatures.push(Math.floor(element[1].temp))
+          temperatures.push(Math.floor(element[1].temp)),
+          pop.push(element[1].pop),
+          humidity.push(element[1].humidity)
         )
       );
 
     setHours(tempHour);
     setTempHourly(temperatures);
+    setPopHourly(pop);
     setHumidityHourly(humidity);
   };
 
@@ -58,30 +59,44 @@ const TempChart = ({ tempData }) => {
       },
       {
         yAxisID: "B",
-        label: "Humidity, %",
-        data: humidityHourly ? humidityHourly : " ",
+        label: "Probability of precipitation",
+        data: popHourly ? popHourly : " ",
         fill: true,
-        backgroundColor: "#222d40",
-        borderColor: "#222d40",
+        backgroundColor: "#0069d9",
+        borderColor: "#0069d9",
         borderWidth: 5,
         pointRadius: 0,
+      },
+      {
+        yAxisID: "C",
+        label: "Humidity, %",
+        data: humidityHourly ? humidityHourly : " ",
+        fill: false,
+        backgroundColor: "transparent",
+        borderColor: "#222d40",
+        borderWidth: 1,
+        pointRadius: 0,
+        borderDash: [10, 10],
       },
     ],
   };
 
   const options = {
     maintainAspectRatio: false,
+    responsive: true,
     tooltips: {
-      // callbacks: {
-      //   label: function (tooltipItem, data) {
-      //     return (
-      //       data["datasets"][tooltipItem.datasetIndex]["data"][
-      //         tooltipItem.index
-      //       ] + "ºC"
-      //     );
-      //   },
-      // },
-      // displayColors: false,
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return (
+            "Temperature: " +
+            data["datasets"][tooltipItem.datasetIndex]["data"][
+              tooltipItem.index
+            ] +
+            "ºC"
+          );
+        },
+      },
+      displayColors: false,
     },
     scaleBeginAtZero: true,
     scales: {
@@ -90,17 +105,57 @@ const TempChart = ({ tempData }) => {
           id: "A",
           type: "linear",
           position: "left",
-          display: false,
+          ticks: {
+            userCallback: function (value) {
+              return value + "°C";
+            },
+            fontColor: "#e4e2e2",
+            suggestedMin: Math.min.apply(Math, tempHourly) + 0.5,
+            suggestedMax: Math.max.apply(Math, tempHourly) + 0.5,
+          },
         },
+
         {
           id: "B",
           type: "linear",
           position: "right",
           ticks: {
-            max: 3,
+            max: 5,
             min: 0,
           },
+          gridLines: {
+            display: false,
+          },
           display: false,
+        },
+        {
+          id: "C",
+          type: "linear",
+          position: "right",
+          ticks: {
+            max: 100,
+            suggestedMin: 20,
+            fontColor: "#e4e2e2",
+            stepSize: 10,
+            userCallback: function (value) {
+              return value + "%";
+            },
+          },
+          gridLines: {
+            display: false,
+          },
+          // display: false,
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            fontColor: "#e4e2e2",
+          },
+          gridLines: {
+            display: false,
+            zeroLineColor: "#e4e2e2",
+          },
         },
       ],
     },

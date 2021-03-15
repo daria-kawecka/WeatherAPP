@@ -62,6 +62,7 @@ const BarChart = ({ forecastData }) => {
 
   const options = {
     maintainAspectRatio: false,
+    responsive: true,
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
