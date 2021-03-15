@@ -105,7 +105,7 @@ const BarChart = ({ forecastData }) => {
 
   return (
     <>
-      <div className="Container">
+      <div className="barChart">
         {tempForecast && dateForecast.length ? (
           <Bar data={data} options={options} />
         ) : (

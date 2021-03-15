@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import styled from "styled-components";
 
-const Container = styled.div`
-  height: 100%;
-  padding: 22px;
-`;
 const TempChart = ({ tempData }) => {
   const [tempHourly, setTempHourly] = useState([]);
   const [humidityHourly, setHumidityHourly] = useState([]);
@@ -144,7 +139,6 @@ const TempChart = ({ tempData }) => {
           gridLines: {
             display: false,
           },
-          // display: false,
         },
       ],
       xAxes: [
@@ -170,13 +164,13 @@ const TempChart = ({ tempData }) => {
     },
   };
   return (
-    <Container className="left-side">
+    <div className="lineChart">
       {hours.length && tempHourly ? (
         <Line data={data} options={options} />
       ) : (
         ">Loading<"
       )}
-    </Container>
+    </div>
   );
 };
 export default TempChart;

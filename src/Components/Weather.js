@@ -1,5 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+
+import MainCardStyled from "../shared/MainCardStyled";
+import AsideCardStyled from "../shared/AsideCardStyled";
 
 import { days } from "./date/days";
 import { months } from "./date/months";
@@ -17,58 +19,6 @@ import { BsFillCloudFill } from "react-icons/bs";
 import { WiHumidity } from "react-icons/wi";
 import { WiBarometer } from "react-icons/wi";
 import { WiStrongWind } from "react-icons/wi";
-
-const MainCardStyles = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  height: 100%;
-  .card {
-    width: 20rem;
-    background-color: rgba(1, 24, 68, 0.15);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-color: transparent;
-    color: #e4e2e2;
-  }
-  .icons {
-    font-size: 2.5rem;
-  }
-  .card-title {
-    font-size: 2rem;
-    border-bottom: 2px solid #e4e2e2;
-  }
-  .text-muted {
-    font-size: 1.2rem;
-    color: #c4c4c3 !important;
-  }
-  .card-text {
-    font-size: 1.4rem;
-  }
-  .icons {
-    font-size: 1.6rem;
-  }
-`;
-const AsideCardStyles = styled.div`
-  .card {
-    height: 100%;
-  }
-  .card-body {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    text-align: center;
-  }
-  .card-text {
-    font-size: 1.4rem;
-  }
-  .icons-aside {
-    font-size: 1.9rem;
-    margin-right: 5px;
-  }
-`;
 
 const Weather = ({ data }) => {
   const currentDate = new Date();
@@ -97,7 +47,7 @@ const Weather = ({ data }) => {
     sunset: convert(data.sys.sunset, data.timezone),
   };
   return (
-    <MainCardStyles>
+    <MainCardStyled className="weather">
       <Card style={{ marginRight: "10px" }}>
         <Card.Body>
           <Card.Title>{TodayWeather.city}</Card.Title>
@@ -139,7 +89,7 @@ const Weather = ({ data }) => {
           </Card.Text>
         </Card.Body>
       </Card>
-      <AsideCardStyles>
+      <AsideCardStyled>
         <Card>
           <Card.Body>
             <Card.Text>
@@ -180,8 +130,8 @@ const Weather = ({ data }) => {
             </Card.Text>
           </Card.Body>
         </Card>
-      </AsideCardStyles>
-    </MainCardStyles>
+      </AsideCardStyled>
+    </MainCardStyled>
   );
 };
 
