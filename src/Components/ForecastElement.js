@@ -1,7 +1,8 @@
 import React from "react";
 import unixConverter from "./date/UnixConverter";
-import getIcon from "./getIcon";
-import DegToDir from "./degToDir";
+
+import getIcon from "./functions/getIcon";
+import DegToDir from "./functions/degToDir";
 
 import ListGroup from "react-bootstrap/ListGroup";
 

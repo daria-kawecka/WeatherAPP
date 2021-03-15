@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Input from "./Input";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
-import TempChart from "./TempChart";
+import TempChart from "./charts/TempChart";
 import { ErrorInfo } from "./ErrorInfo";
-import BarChart from "./BarChart";
+import BarChart from "./charts/BarChart";
 
 const WeatherContainer = styled.div`
   width: 100%;

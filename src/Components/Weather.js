@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { days } from "./date/days";
 import { months } from "./date/months";
 import convert from "./date/TimeConverter";
-import getIcon from "./getIcon";
+import getIcon from "./functions/getIcon";
 import Card from "react-bootstrap/Card";
 //icons:
 import { IconContext } from "react-icons";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import unixConverter from "./date/UnixConverter";
+import unixConverter from "../date/UnixConverter";
 import { Bar } from "react-chartjs-2";
 
 const BarChart = ({ forecastData }) => {
