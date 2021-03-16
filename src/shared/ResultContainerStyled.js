@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./device";
 
 const ResultContainerStyled = styled.div`
   width: 100%;
@@ -25,8 +26,56 @@ const ResultContainerStyled = styled.div`
   }
   .forecast {
     grid-area: Forecast;
-    justify-self: stretch;
-    align-self: stretch;
+  }
+  @media ${device.laptop} {
+    .lineChart {
+      height: 90%;
+      width: 100%;
+      padding: 5px;
+    }
+  }
+  @media ${device.tabletL} {
+    height: 85vh;
+    grid-template-columns: 40% 25% 32%;
+    gap: 10px 10px;
+    grid-template-areas:
+      "Bottom Center Forecast"
+      "Left Left Forecast";
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.mobileLand} {
+    grid-template-columns: 32% 32% 35%;
+    grid-template-rows: 45% 55%;
+    .lineChart {
+      height: 90%;
+      width: 95%;
+      bottom: 0px;
+      margin-left: 0px;
+      padding-bottom: 15px;
+    }
+  }
+
+  @media ${device.mobileL} {
+    grid-template-columns: 53% 47%;
+    grid-template-rows: 45% 55%;
+    gap: 5px 5px;
+    grid-template-areas:
+      "Bottom Center"
+      "Left  Forecast";
+    .lineChart {
+      height: 95%;
+      width: 98%;
+      padding: 15px;
+      margin-left: 10px;
+    }
+    .barChart {
+      grid-area: Bottom;
+      padding: 10px;
+    }
+    .forecast {
+      width: 100%;
+    }
   }
 `;
 
