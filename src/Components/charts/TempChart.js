@@ -94,6 +94,7 @@ const TempChart = ({ tempData }) => {
       displayColors: false,
     },
     scaleBeginAtZero: true,
+
     scales: {
       yAxes: [
         {
@@ -107,6 +108,7 @@ const TempChart = ({ tempData }) => {
             fontColor: "#e4e2e2",
             suggestedMin: Math.min.apply(Math, tempHourly) + 0.5,
             suggestedMax: Math.max.apply(Math, tempHourly) + 0.5,
+            fontSize: 11,
           },
         },
 
@@ -117,6 +119,7 @@ const TempChart = ({ tempData }) => {
           ticks: {
             max: 5,
             min: 0,
+            fontSize: 11,
           },
           gridLines: {
             display: false,
@@ -135,6 +138,7 @@ const TempChart = ({ tempData }) => {
             userCallback: function (value) {
               return value + "%";
             },
+            fontSize: 10,
           },
           gridLines: {
             display: false,
@@ -157,6 +161,7 @@ const TempChart = ({ tempData }) => {
       display: true,
       labels: {
         fontColor: "#e4e2e2",
+        fontSize: 10,
       },
     },
     animation: {

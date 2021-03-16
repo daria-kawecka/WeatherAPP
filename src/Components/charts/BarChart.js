@@ -81,6 +81,7 @@ const BarChart = ({ forecastData }) => {
           ticks: {
             beginAtZero: true,
             fontColor: "#e4e2e2",
+            fontSize: 11,
           },
         },
       ],
@@ -88,6 +89,7 @@ const BarChart = ({ forecastData }) => {
         {
           ticks: {
             fontColor: "#e4e2e2",
+            fontSize: 11,
           },
         },
       ],
@@ -96,6 +98,7 @@ const BarChart = ({ forecastData }) => {
       display: true,
       labels: {
         fontColor: "#e4e2e2",
+        fontSize: 10,
       },
     },
     animation: {
