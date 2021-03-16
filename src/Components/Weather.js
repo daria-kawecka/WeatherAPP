@@ -48,7 +48,7 @@ const Weather = ({ data }) => {
   };
   return (
     <MainCardStyled className="weather">
-      <Card style={{ marginRight: "10px" }}>
+      <Card>
         <Card.Body>
           <Card.Title>{TodayWeather.city}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">

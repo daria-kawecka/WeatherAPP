@@ -31,7 +31,6 @@ const Search = () => {
 
         getForecastData(result.data.coord.lat, result.data.coord.lon);
       } catch (error) {
-        console.log(error);
         setIsError(true);
       }
     };

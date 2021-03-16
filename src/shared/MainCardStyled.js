@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { device } from "./device";
 const MainCardStyles = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -30,6 +30,14 @@ const MainCardStyles = styled.div`
   }
   .icons {
     font-size: 1.6rem;
+  }
+  @media ${device.desktop} {
+    .card {
+      width: 15rem;
+    }
+    .card-title {
+      font-size: 1.4rem;
+    }
   }
 `;
 
