@@ -79,6 +79,9 @@ const BarChart = ({ forecastData }) => {
       yAxes: [
         {
           ticks: {
+            userCallback: function (value) {
+              return value + "°C";
+            },
             beginAtZero: true,
             fontColor: "#e4e2e2",
             fontSize: 11,
