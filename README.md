@@ -1,10 +1,10 @@
-# WeatherApp
+# WeatherApp ☀️🌩❄️
 
-This is my weatherApp written in React.js. As you probably guessed, this app is created for monitoring the weather in your location.  I used  **React-Bootstrap** to create layout. Additionally, it has been styled with **styled-components**. Weather data is provided by *OpenWeather* and fetched using **Axios**. Moreover, I used **Chart.js** to create *bar chart* and *line chart* to better present my data. 
+This is my weatherApp written in React.js. As you probably guessed, this app is created for monitoring the weather in your location. I used **React-Bootstrap** to create layout. Additionally, it has been styled with **styled-components**. Weather data is provided by _OpenWeather_ and fetched using **Axios**. Moreover, I used **Chart.js** to create _bar chart_ and _line chart_ to better present my data.
 
-## Still in progress:
--  RWD
- -  Error Page
- - Loading component
+## Still in progress 👩🏻‍💻⏳:
 
-## *Check out* - https://daria-kawecka.github.io/WeatherAPP/
+- Error Page
+- Loading component
+
+## _Check out_ - https://daria-kawecka.github.io/WeatherAPP/
