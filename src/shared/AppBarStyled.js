@@ -38,11 +38,11 @@ const AppBarStyles = styled.div`
   }
   @media ${device.mobileL} {
     .navbar {
-      height: 5vh;
+      height: 6vh;
     }
     .navbar-brand {
-      font-size: 16px;
-      padding-top: 0;
+      font-size: 14px;
+      padding-top: 0px;
     }
     .badge {
       font-size: 12px;

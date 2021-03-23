@@ -12,7 +12,7 @@ const AppContainerStyled = styled.div`
   background-repeat: no-repeat;
   overflow: hidden;
   text-align: center;
-  min-height: 100vh;
-  max-height: 100vh;
+  height: 100vh;
+  overflow-y: hidden;
 `;
 export default AppContainerStyled;
