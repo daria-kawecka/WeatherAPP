@@ -3,6 +3,7 @@ import { device } from "./device";
 const AppBarStyles = styled.div`
   .navbar {
     background: #222d40;
+    cursor: default;
   }
   .navbar-brand {
     color: #aaaaaa;

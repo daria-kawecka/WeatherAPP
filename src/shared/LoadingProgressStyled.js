@@ -8,7 +8,6 @@ const LoadingBar = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10;
   background-color: rgba(34, 45, 64, 0.65);
   .progress {
     width: 100%;
