@@ -9,7 +9,7 @@ import { IconContext } from "react-icons";
 export const AppBar = () => (
   <AppBarStyled>
     <Navbar expand="lg" className="shadow-lg">
-      <Navbar.Brand href="/">
+      <Navbar.Brand>
         <IconContext.Provider value={{ className: "appIcon" }}>
           <BsFillCloudFill />
         </IconContext.Provider>

@@ -17,10 +17,10 @@ const LoadingProgress = () => {
           setIsRender(false);
           return 100;
         }
-        const tempProgress = parseInt(Math.random() * 30, 10);
+        const tempProgress = parseInt(Math.random() * 25, 10);
         return Math.min(prevState + tempProgress, 100);
       });
-    }, 500);
+    }, 333);
   }, []);
 
   const progressInstance = (
