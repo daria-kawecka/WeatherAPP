@@ -31,6 +31,7 @@ const ListStyled = styled(ListGroup)`
     }
   }
   @media ${device.tabletL} {
+    height: 100%;
     .pagination {
       .page-link {
         line-height: 1;

@@ -133,8 +133,9 @@ const ListItemStyled = styled(ListGroup.Item)`
     }
   }
   @media ${device.tabletL} {
+    height: 23%;
     p {
-      font-size: 1.3rem;
+      font-size: 1rem;
       margin: 0;
     }
     .item__date {
